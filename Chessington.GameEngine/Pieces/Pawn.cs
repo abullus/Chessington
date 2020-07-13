@@ -12,36 +12,27 @@ namespace Chessington.GameEngine.Pieces
         
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
-            List<Square> availableMoves = new List<Square>();
             Square currentSquare = board.FindPiece(this);
-            List<Square> potentialSquare = new List<Square>();
+            List<Square> potentialSquares = new List<Square>();
+            
             if (this.Player == Player.White)
             {
-                potentialSquare.Add(Square.At(currentSquare.Row-1,currentSquare.Col));
+                potentialSquares.Add(Square.At(currentSquare.Row-1,currentSquare.Col));
                 if (this.HasMoved == false)
                 {
-                    potentialSquare.Add(Square.At(currentSquare.Row-2,currentSquare.Col));
+                    potentialSquares.Add(Square.At(currentSquare.Row-2,currentSquare.Col));
                 }
             }
             if (this.Player == Player.Black)
             {
-                potentialSquare.Add(Square.At(currentSquare.Row+1,currentSquare.Col));
+                potentialSquares.Add(Square.At(currentSquare.Row+1,currentSquare.Col));
                 if (this.HasMoved == false)
                 {
-                    potentialSquare.Add(Square.At(currentSquare.Row+2,currentSquare.Col));
+                    potentialSquares.Add(Square.At(currentSquare.Row+2,currentSquare.Col));
                 }
             }
-            
-            foreach (var square in potentialSquare)
-            {
-                if (board.GetPiece(square) == null)
-                {
-                    availableMoves.Add(square);
-                }
-            }
-            
-            
-            return availableMoves;
+
+            return potentialSquares.Where(square => board.GetPiece(square)  == null );
         }
     }
 }
