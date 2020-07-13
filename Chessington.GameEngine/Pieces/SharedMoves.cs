@@ -7,43 +7,16 @@ namespace Chessington.GameEngine.Pieces
         public IEnumerable<Square> AvailableDiagonalMoves (Square currentSquare)
         {
             List<Square> potentialSquares = new List<Square>();
-            int col = currentSquare.Col;
-            int row = currentSquare.Row;
-            
-            while (col <= 7 && row <= 7)
+            for (int i = 0; i < 4; i++)
             {
-                potentialSquares.Add(Square.At(row,col));
-                col++;
-                row++;
+                StepPosition stepPosition = new StepPosition(currentSquare.Col,currentSquare.Row);
+                while (stepPosition.Col <= 7 && stepPosition.Col >= 0 && stepPosition.Row <= 7 && stepPosition.Row >= 0)
+                {
+                    potentialSquares.Add(Square.At(stepPosition.Col,stepPosition.Row));
+                    stepPosition.StepColumn(i);
+                    stepPosition.StepRow(i);
+                }
             }
-            
-            col = currentSquare.Col;
-            row = currentSquare.Row;
-            while (col <= 7 && row >= 0)
-            {
-                potentialSquares.Add(Square.At(row,col));
-                col++;
-                row--;
-            }
-            
-            col = currentSquare.Col;
-            row = currentSquare.Row;
-            while (col >= 0 && row <= 7)
-            {
-                potentialSquares.Add(Square.At(row,col));
-                col--;
-                row++;
-            }
-            
-            col = currentSquare.Col;
-            row = currentSquare.Row;
-            while (col >= 0 && row >= 0)
-            {
-                potentialSquares.Add(Square.At(row,col));
-                col--;
-                row--;
-            }
-            
             potentialSquares.RemoveAll(square => square == currentSquare);
             return potentialSquares;
         }
