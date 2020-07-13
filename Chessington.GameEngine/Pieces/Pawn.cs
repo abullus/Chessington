@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Chessington.GameEngine.Pieces
 {
@@ -8,24 +9,37 @@ namespace Chessington.GameEngine.Pieces
         public Pawn(Player player) 
             : base(player) { }
 
+        
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
             List<Square> availableMoves = new List<Square>();
             Square currentSquare = board.FindPiece(this);
-            Square potentialSquare = new Square();
+            List<Square> potentialSquare = new List<Square>();
             if (this.Player == Player.White)
             {
-                potentialSquare  =  Square.At(currentSquare.Row-1,currentSquare.Col);
+                potentialSquare.Add(Square.At(currentSquare.Row-1,currentSquare.Col));
+                if (this.HasMoved == false)
+                {
+                    potentialSquare.Add(Square.At(currentSquare.Row-2,currentSquare.Col));
+                }
             }
             if (this.Player == Player.Black)
             {
-                potentialSquare = Square.At(currentSquare.Row+1,currentSquare.Col);
+                potentialSquare.Add(Square.At(currentSquare.Row+1,currentSquare.Col));
+                if (this.HasMoved == false)
+                {
+                    potentialSquare.Add(Square.At(currentSquare.Row+2,currentSquare.Col));
+                }
             }
-
-            if (board.GetPiece(potentialSquare) == null)
+            
+            foreach (var square in potentialSquare)
             {
-                availableMoves.Add(potentialSquare);
+                if (board.GetPiece(square) == null)
+                {
+                    availableMoves.Add(square);
+                }
             }
+            
             
             return availableMoves;
         }
