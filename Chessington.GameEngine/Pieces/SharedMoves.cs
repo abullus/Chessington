@@ -10,41 +10,41 @@ namespace Chessington.GameEngine.Pieces
             int col = currentSquare.Col;
             int row = currentSquare.Row;
             
-            while (col < 7 && row < 7)
+            while (col <= 7 && row <= 7)
             {
+                potentialSquares.Add(Square.At(row,col));
                 col++;
                 row++;
-                potentialSquares.Add(Square.At(col, row));
             }
             
             col = currentSquare.Col;
             row = currentSquare.Row;
-            while (col < 7 && row > 0)
+            while (col <= 7 && row >= 0)
             {
+                potentialSquares.Add(Square.At(row,col));
                 col++;
                 row--;
-                potentialSquares.Add(Square.At(col, row));
             }
             
             col = currentSquare.Col;
             row = currentSquare.Row;
-            while (col > 0 && row < 7)
+            while (col >= 0 && row <= 7)
             {
+                potentialSquares.Add(Square.At(row,col));
                 col--;
                 row++;
-                potentialSquares.Add(Square.At(col, row));
             }
             
             col = currentSquare.Col;
             row = currentSquare.Row;
-            while (col > 0 && row > 0)
+            while (col >= 0 && row >= 0)
             {
+                potentialSquares.Add(Square.At(row,col));
                 col--;
                 row--;
-                potentialSquares.Add(Square.At(col, row));
             }
             
-            potentialSquares.Remove(currentSquare);
+            potentialSquares.RemoveAll(square => square == currentSquare);
             return potentialSquares;
         }
         public IEnumerable<Square> AvailableLateralMoves(Square currentSquare)
