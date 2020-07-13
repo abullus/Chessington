@@ -12,7 +12,7 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentSquare = board.FindPiece(this);
             SharedMove sharedMove = new SharedMove();
-            return sharedMove.AvailableLateralMoves(currentSquare, board);
+            return sharedMove.AvailableLateralMoves(currentSquare, board, this);
         }
     }
 }
