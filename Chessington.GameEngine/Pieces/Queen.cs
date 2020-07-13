@@ -14,7 +14,7 @@ namespace Chessington.GameEngine.Pieces
             SharedMove sharedMove = new SharedMove();
             List<Square> potentialSquares = new List<Square>();
             
-            potentialSquares.AddRange(sharedMove.AvailableDiagonalMoves(currentSquare));
+            potentialSquares.AddRange(sharedMove.AvailableDiagonalMoves(currentSquare, board));
             potentialSquares.AddRange(sharedMove.AvailableLateralMoves(currentSquare, board));
 
             return potentialSquares;
