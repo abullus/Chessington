@@ -17,8 +17,10 @@ namespace Chessington.GameEngine.Pieces
 
             for (var i = 0; i < 8; i++)
                 potentialSquares.Add(Square.At(i, currentSquare.Col));
-            
-            return potentialSquares.Where(square => board.GetPiece(square)  == null );
+
+            potentialSquares.Remove(currentSquare);
+            return potentialSquares;
+            //return potentialSquares.Where(square => board.GetPiece(square)  == null );
         }
     }
 }

@@ -32,7 +32,8 @@ namespace Chessington.GameEngine.Pieces
                 }
             }
 
-            return potentialSquares.Where(square => board.GetPiece(square)  == null );
+            return potentialSquares;
+            //return potentialSquares.Where(square => board.GetPiece(square)  == null );
         }
     }
 }
