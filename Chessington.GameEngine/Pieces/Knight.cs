@@ -1,6 +1,6 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
+
 
 namespace Chessington.GameEngine.Pieces
 {
@@ -24,9 +24,6 @@ namespace Chessington.GameEngine.Pieces
 
             potentialSquares.RemoveAll(square => square.Col > 7 || square.Col < 0 || square.Row > 7 || square.Row < 0);
             potentialSquares.RemoveAll(square => board.GetPiece(square) != null && board.GetPiece(square).Player == Player);
-                
-            
-
             return potentialSquares;
         }
     }

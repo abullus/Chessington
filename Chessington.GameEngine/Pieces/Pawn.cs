@@ -6,10 +6,12 @@ namespace Chessington.GameEngine.Pieces
 {
     public class Pawn : Piece
     {
-        public Pawn(Player player) 
-            : base(player) { }
+        public Pawn(Player player)
+            : base(player)
+        {
+        }
 
-        
+
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
             Square currentSquare = board.FindPiece(this);
@@ -19,26 +21,52 @@ namespace Chessington.GameEngine.Pieces
             if (this.Player == Player.White)
             {
                 playerDirection = -1;
-            }else {
+            }
+            else
+            {
                 playerDirection = 1;
             }
 
-            if (currentSquare.Row != 3.5 + 3.5 * playerDirection)
+
+            if (currentSquare.Row + playerDirection <= 7 && currentSquare.Row + playerDirection >= 0 &&
+                currentSquare.Col <= 7 && currentSquare.Col >= 0)
             {
                 if (board.GetPiece(Square.At(currentSquare.Row + playerDirection, currentSquare.Col)) == null)
                 {
-                    potentialSquares.Add(Square.At(currentSquare.Row+ playerDirection,currentSquare.Col));
-                    if (currentSquare.Row != 3.5 + 2.5 * playerDirection)
+                    potentialSquares.Add(Square.At(currentSquare.Row + playerDirection, currentSquare.Col));
+                    if (this.HasMoved == false)
                     {
-                        if (this.HasMoved == false && board.GetPiece(Square.At(currentSquare.Row + playerDirection*2 ,currentSquare.Col))  == null)
+                        if (currentSquare.Row + 2 * playerDirection <= 7 &&
+                            currentSquare.Row + 2 * playerDirection >= 0 && currentSquare.Col <= 7 &&
+                            currentSquare.Col >= 0)
                         {
-                            potentialSquares.Add(Square.At(currentSquare.Row+ playerDirection*2,currentSquare.Col));
+                            if (board.GetPiece(Square.At(currentSquare.Row + 2 * playerDirection, currentSquare.Col)) ==
+                                null)
+                            {
+                                potentialSquares.Add(Square.At(currentSquare.Row + playerDirection * 2,
+                                    currentSquare.Col));
+                            }
                         }
                     }
                 }
             }
-            
-            
+
+            for (int i = -1; i <= 1; i += 2)
+            {
+                if (currentSquare.Row + playerDirection <= 7 && currentSquare.Row + playerDirection >= 0 &&
+                    currentSquare.Col + i <= 7 && currentSquare.Col + i >= 0)
+                {
+                    var piece = board.GetPiece(Square.At(currentSquare.Row + playerDirection,
+                        currentSquare.Col + i));
+                    if (piece != null && piece.Player != this.Player)
+                    {
+                        potentialSquares.Add(Square.At(currentSquare.Row + playerDirection,
+                            currentSquare.Col + i));
+                    }
+                }
+            }
+
+
             return potentialSquares;
         }
     }

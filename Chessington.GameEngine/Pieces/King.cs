@@ -23,7 +23,9 @@ namespace Chessington.GameEngine.Pieces
                 potentialSquares.Add(Square.At(currentSquare.Row, currentSquare.Col + i));
             }
 
-            return potentialSquares.Where(square => square.Col <= 7 && square.Col >=0 && square.Row <= 7 && square.Row >= 0);
+            potentialSquares.RemoveAll(square => square.Col > 7 || square.Col < 0 || square.Row > 7 || square.Row < 0);
+            potentialSquares.RemoveAll(square => board.GetPiece(square) != null && board.GetPiece(square).Player == Player);
+            return potentialSquares;
         }
     }
 }

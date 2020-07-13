@@ -53,8 +53,6 @@ namespace Chessington.GameEngine.Pieces
                 case 3:
                     Col++;
                     break;
-
-
             }
         }
     }
