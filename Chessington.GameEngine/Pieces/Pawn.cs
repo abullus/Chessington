@@ -15,7 +15,7 @@ namespace Chessington.GameEngine.Pieces
             Square currentSquare = board.FindPiece(this);
             List<Square> potentialSquares = new List<Square>();
 
-            int playerDirection = 0;
+            int playerDirection;
             if (this.Player == Player.White)
             {
                 playerDirection = -1;
@@ -33,7 +33,6 @@ namespace Chessington.GameEngine.Pieces
             }
             
             return potentialSquares;
-            //return potentialSquares.Where(square => board.GetPiece(square)  == null );
         }
     }
 }

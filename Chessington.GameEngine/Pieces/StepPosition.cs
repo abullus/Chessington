@@ -36,5 +36,26 @@ namespace Chessington.GameEngine.Pieces
                 Row--;
             }
         }
+
+        public void StepLateral(int counter)
+        {
+            switch (counter)
+            {
+                case 0:
+                    Row--;
+                    break;
+                case 1:
+                    Row++;
+                    break;
+                case 2:
+                    Col--;
+                    break;
+                case 3:
+                    Col++;
+                    break;
+
+
+            }
+        }
     }
 }
